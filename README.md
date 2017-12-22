@@ -13,13 +13,13 @@ $ pip install -r requirements.txt
 
 run flask app
 ```sh
-$ python run.py
+$ python manage.py runserver
 ```
 if you do not install database you can get the database connection error
 
 # Test
 ```sh
-python run.py test
+python manage.py test
 ```
 
 # ENV

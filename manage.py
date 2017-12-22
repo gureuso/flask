@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import sys
 import unittest2
 from flask import Flask
+from flask_script import Manager
 
 from apps.common.database import db_session
 from apps.common.response import error
@@ -44,34 +44,23 @@ def internal_server_error(err):
 def shutdown_session(exception=None):
     db_session.remove()
 
+# command
+manager = Manager(app)
 
-class Run(object):
-    COMMAND = [
-        'test',
-    ]
 
-    @classmethod
-    def perform(cls):
-        command = sys.argv[1] if len(sys.argv) > 1 else None
+@manager.command
+def test():
+    loader = unittest2.TestLoader()
+    start_dir = '{0}/apps'.format(Config.ROOT_DIR)
+    suite = loader.discover(start_dir)
 
-        if command in Run.COMMAND:
-            func_name = 'run{0}'.format(command.title())
-            getattr(Run, func_name)()
-        else:
-            Run.run()
+    runner = unittest2.TextTestRunner()
+    runner.run(suite)
 
-    @staticmethod
-    def runTest():
-        loader = unittest2.TestLoader()
-        start_dir = '{0}/apps'.format(Config.ROOT_DIR)
-        suite = loader.discover(start_dir)
 
-        runner = unittest2.TextTestRunner()
-        runner.run(suite)
+@manager.command
+def runserver():
+    app.run(host=Config.APP_HOST, port=Config.APP_PORT)
 
-    @staticmethod
-    def run():
-        app.run(host=Config.APP_HOST, port=Config.APP_PORT)
-
-if __name__ == '__main__':
-    Run.perform()
+if __name__ == "__main__":
+    manager.run()
