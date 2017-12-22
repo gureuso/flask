@@ -33,5 +33,5 @@ python manage.py test
 | MYSQL_USER_PASSWD   | mysql user password              |
 | MYSQL_HOST          | mysql host                       |
 | MYSQL_DB_NAME       | mysql db name                    |
-| REDIS_HOST          | mysql db name                    |
-| REDIS_PASSWD        | mysql db name                    |
+| REDIS_HOST          | redis ip address                 |
+| REDIS_PASSWD        | redis password                   |
