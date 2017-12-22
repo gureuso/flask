@@ -1,21 +1,24 @@
 # Flask
-Flask example
+Flask simple example
 
 # Usage
 
+install virtualenv
 ```sh
-# virtualenv
-pip install virtualenv
-mkdir venv
-. venv/bin/activate
-pip install -r requirements.txt
-
-# run flask app
-python run.py
+$ pip install virtualenv
+$ mkdir venv
+$ . venv/bin/activate
+$ pip install -r requirements.txt
 ```
 
+run flask app
 ```sh
-# run test code
+$ python run.py
+```
+if you do not install database you can get the database connection error
+
+# Test
+```sh
 python run.py test
 ```
 
@@ -23,7 +26,7 @@ python run.py test
 
 | Name                | Description                      |
 | ------------------- | -------------------------------- |
-| APP_MODE            | production, development, testing |
+| APP_MODE            | choose from production, development, testing |
 | APP_HOST            | ip address                       |
 | APP_PORT            | port number                      |
 | MYSQL_USER_NAME     | mysql user name                  |
