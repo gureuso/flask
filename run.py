@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import sys
+
 import unittest2
-
-from apps.common.response import error
 from flask import Flask
-from apps.models.database import db_session
 
+from apps.common.database import db_session
+from apps.common.response import error
 from apps.controllers.index.controllers import app as index_app
 from apps.controllers.test.controllers import app as test_app
 from config import Config

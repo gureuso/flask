@@ -25,6 +25,8 @@ class Config(object):
     MYSQL_USER_PASSWD = os.getenv('MYSQL_USER_PASSWD', 'asdf1234')
     MYSQL_HOST = os.getenv('MYSQL_HOST', 'localhost')
     MYSQL_DB_NAME = os.getenv('MYSQL_DB_NAME', 'flask')
+    REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
+    REDIS_PASSWD = os.getenv('REDIS_PASSWD')
 
     @staticmethod
     def databaseUrls():
