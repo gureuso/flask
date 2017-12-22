@@ -4,7 +4,7 @@ import redis
 
 from apps.common.database import init_db, db_session, redis_session
 from apps.models.tests import Test
-from run import app
+from manage import app
 
 
 class TestDatabase(unittest2.TestCase):

@@ -2,7 +2,7 @@
 import json
 import unittest2
 
-from run import app
+from manage import app
 
 
 class Test(unittest2.TestCase):
