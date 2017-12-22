@@ -11,7 +11,7 @@ $ . venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-run flask app
+run flask server
 ```sh
 $ python manage.py runserver
 ```

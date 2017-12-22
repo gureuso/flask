@@ -45,11 +45,12 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 # command
-manager = Manager(app)
+manager = Manager(app, with_default_commands=False)
 
 
 @manager.command
 def test():
+    """test code"""
     loader = unittest2.TestLoader()
     start_dir = '{0}/apps'.format(Config.ROOT_DIR)
     suite = loader.discover(start_dir)
@@ -60,6 +61,7 @@ def test():
 
 @manager.command
 def runserver():
+    """run flask server"""
     app.run(host=Config.APP_HOST, port=Config.APP_PORT)
 
 if __name__ == "__main__":
