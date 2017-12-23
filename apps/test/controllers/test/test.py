@@ -3,7 +3,7 @@ import json
 import re
 import unittest2
 
-from manage import app
+from apps.controllers import app
 
 
 class Test(unittest2.TestCase):
