@@ -2,25 +2,25 @@
 import unittest2
 import redis
 
-from apps.common.database import init_db, db_session, redis_session
+from apps.common.database import db, redis_session
+from apps.controllers import app
 from apps.models.tests import Test
-from manage import app
 
 
 class TestDatabase(unittest2.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.app.testing = True
-        init_db()
+        db.create_all()
 
     def tearDown(self):
         Test.query.filter_by(message='test01').delete()
-        db_session.commit()
+        db.session.commit()
 
     def test_connect_db(self):
         t = Test('test01')
-        db_session.add(t)
-        db_session.commit()
+        db.session.add(t)
+        db.session.commit()
 
         rows = Test.query.filter_by(message='test01').all()
         self.assertEqual(len(rows), 1)

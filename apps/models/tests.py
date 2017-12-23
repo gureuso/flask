@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-from sqlalchemy import Column, Integer, String
-
-from apps.common.database import Base
+from apps.common.database import db
 
 
-class Test(Base):
+class Test(db.Model):
     __tablename__ = 'tests'
     __table_args__ = {'extend_existing': True}
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    message = Column(String(120))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    message = db.Column(db.String(120))
 
     def __init__(self, message=None):
         self.message = message

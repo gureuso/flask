@@ -48,6 +48,9 @@ class Config(object):
 # flask config
 class FlaskConfig(object):
     SECRET_KEY = os.urandom(24).encode('hex')
+    SQLALCHEMY_DATABASE_URI = Config.databaseUrls()
+    # https://stackoverflow.com/questions/33738467/how-do-i-know-if-i-can-disable-sqlalchemy-track-modifications
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     TESTING = False
 
@@ -57,6 +60,7 @@ class ProductionConfig(FlaskConfig):
 
 
 class DevelopmentConfig(FlaskConfig):
+    SQLALCHEMY_ECHO = True
     DEBUG = True
     TESTING = True
 
