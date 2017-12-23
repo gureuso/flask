@@ -22,6 +22,14 @@ if you do not install database you can get the database connection error
 python manage.py test
 ```
 
+# Migrate
+if you want to use Flask-Migrate you enter this command
+```sh
+$ python manage.py db
+```
+
+- [Flask-Migrate docs](https://flask-migrate.readthedocs.io/en/latest/)
+
 # ENV
 
 | Name                | Description                      |
