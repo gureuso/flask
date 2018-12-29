@@ -56,7 +56,7 @@ class FlaskConfig(object):
 
 
 class ProductionConfig(FlaskConfig):
-    DEBUG = False
+    pass
 
 
 class DevelopmentConfig(FlaskConfig):
