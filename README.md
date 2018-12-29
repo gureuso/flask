@@ -24,16 +24,16 @@ $ pip install -r requirements.txt
 | REDIS_HOST          | redis ip address                 |
 | REDIS_PASSWD        | redis password                   |
 
-### 3. create database & migration
+### 3. init
 ```sh
-$ python manage.py init db
+$ python manage.py init
 ```
+init db tables
 
 ### 4. run test code
 ```sh
 $ python manage.py test
 ```
-
 
 ### 5. run flask server
 ```sh
@@ -90,18 +90,5 @@ perform database migrations
 ### init
 ```sh
 $ python manage.py init
-perform init operations
-
-
-usage: Perform init operations
-
-Perform init operations
-
-positional arguments:
-  {db}
-    db        init db tables & migration
-
-optional arguments:
-  -?, --help  show this help message and exit
 ```
-perform init operations
+init db tables
