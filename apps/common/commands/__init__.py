@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
+import flask_migrate
+import flask_script
 import unittest2
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+from alembic.util.exc import CommandError
 
-from apps.common.commands.init import manager as initManager
 from apps.common.database import db
 from apps.controllers import app
 from config import Config
 
-migrate = Migrate(app, db)
-manager = Manager(app, with_default_commands=False)
-manager.add_command('db', MigrateCommand)
-manager.add_command('init', initManager)
+migrate = flask_migrate.Migrate(app, db)
+manager = flask_script.Manager(app, with_default_commands=False)
+manager.add_command('db', flask_migrate.MigrateCommand)
 
 
 @manager.command
@@ -29,3 +28,18 @@ def test():
 def runserver():
     """run flask server"""
     app.run(host=Config.APP_HOST, port=Config.APP_PORT)
+
+
+@manager.command
+def init():
+    """init db tables & migration"""
+    import apps.models.tests
+
+    try:
+        flask_migrate.init()
+    except CommandError:
+        flask_migrate.downgrade(revision='base')
+
+    db.drop_all()
+    db.create_all()
+    flask_migrate.upgrade()
