@@ -9,7 +9,7 @@ app = Blueprint('index', __name__)
 
 @app.route('/', methods=['get'])
 def index():
-    return ok('Index')
+    return ok()
 
 
 @app.route('favicon.ico')
