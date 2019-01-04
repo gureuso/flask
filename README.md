@@ -24,9 +24,9 @@ $ pip install -r requirements.txt
 | REDIS_HOST          | redis ip address                 |
 | REDIS_PASSWD        | redis password                   |
 
-### 3. init
+### 3. db init
 ```sh
-$ python manage.py init
+$ python manage.py db init
 ```
 init db tables
 
@@ -55,8 +55,19 @@ $ python manage.py test
 ```
 run test code with unittest2
 
-### init
+
+### db
 ```sh
 $ python manage.py init
+usage: Perform database operations
+
+Perform database operations
+
+positional arguments:
+  {init}
+    init      init db tables
+
+optional arguments:
+  -?, --help  show this help message and exit
 ```
-init db tables
+perform database operations

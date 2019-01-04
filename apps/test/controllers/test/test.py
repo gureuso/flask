@@ -3,7 +3,7 @@ import json
 import re
 import unittest2
 
-from apps.controllers import app
+from apps.controllers.route import app
 
 
 class Test(unittest2.TestCase):
@@ -50,6 +50,7 @@ class Test(unittest2.TestCase):
 
         match = re.search(r'<h1>html<\/h1>', result.data)
         self.assertTrue(match)
+
 
 if __name__ == '__main__':
     unittest2.main()

@@ -3,7 +3,7 @@ import unittest2
 import redis
 
 from apps.common.database import db, redis_session
-from apps.controllers import app
+from apps.controllers.route import app
 from apps.models.tests import Test
 
 
@@ -16,6 +16,7 @@ class TestDatabase(unittest2.TestCase):
     def tearDown(self):
         Test.query.filter_by(message='test01').delete()
         db.session.commit()
+        db.drop_all()
 
     def test_connect_db(self):
         t = Test('test01')
