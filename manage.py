@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from apps.common.commands import manager
+from apps.common.commands.manager import manager
 from apps.common.database import db
-from apps.controllers import app
+from apps.controllers.route import app
 from config import Config
 
 

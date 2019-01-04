@@ -2,7 +2,7 @@
 import json
 import unittest2
 
-from apps.controllers import app
+from apps.controllers.route import app
 
 
 class Test(unittest2.TestCase):
@@ -18,6 +18,7 @@ class Test(unittest2.TestCase):
         self.assertEqual(result.status_code, 200)
         data = json.loads(result.data)
         self.assertEqual(data['data'], 'Index')
+
 
 if __name__ == '__main__':
     unittest2.main()
