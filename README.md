@@ -58,7 +58,7 @@ run test code with unittest2
 
 ### db
 ```sh
-$ python manage.py init
+$ python manage.py db
 usage: Perform database operations
 
 Perform database operations
@@ -71,3 +71,19 @@ optional arguments:
   -?, --help  show this help message and exit
 ```
 perform database operations
+
+# Docker
+
+support the docker. however, you need to install database server. below is an example of database dockerfile
+
+```dockerfile
+FROM mysql:5.7
+MAINTAINER gureuso <gureuso.github.io>
+
+USER root
+
+ENV MYSQL_ROOT_PASSWORD asdf1234
+ENV MYSQL_DATABASE flask
+
+EXPOSE 3306
+```
