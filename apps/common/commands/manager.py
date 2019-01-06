@@ -21,7 +21,8 @@ def test():
     runner.run(suite)
 
 
-@manager.command
-def runserver():
+@manager.option('-h', '--host', dest='host', default=Config.APP_HOST)
+@manager.option('-p', '--port', dest='port', default=Config.APP_PORT)
+def runserver(host, port):
     """run flask server"""
-    app.run(host=Config.APP_HOST, port=Config.APP_PORT)
+    app.run(host=host, port=int(port))

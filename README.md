@@ -47,6 +47,13 @@ if you do not install database you can get the database connection error
 ```sh
 $ python manage.py runserver
 ```
+
+optional arguments:
+```sh
+-h, --host  hostname
+-p, --port  port number
+```
+
 run flask server
 
 ### test
