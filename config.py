@@ -18,13 +18,15 @@ class Config(object):
         50000: 'Internal Server Error',
     }
 
-    APP_MODE = os.getenv('APP_MODE', APP_MODE_DEVELOPMENT)
-    APP_HOST = os.getenv('APP_HOST', 'localhost')
-    APP_PORT = int(os.getenv('APP_PORT', 5000))
-    MYSQL_USER_NAME = os.getenv('MYSQL_USER_NAME', 'root')
-    MYSQL_USER_PASSWD = os.getenv('MYSQL_USER_PASSWD', 'asdf1234')
-    MYSQL_HOST = os.getenv('MYSQL_HOST', 'localhost')
-    MYSQL_DB_NAME = os.getenv('MYSQL_DB_NAME', 'flask')
+    APP_MODE = os.getenv('APP_MODE', APP_MODE_PRODUCTION)
+    APP_HOST = os.getenv('APP_HOST', '0.0.0.0')
+    APP_PORT = int(os.getenv('APP_PORT', 80))
+
+    MYSQL_USER_NAME = os.getenv('MYSQL_USER_NAME') or os.getenv('RDS_USERNAME') or 'root'
+    MYSQL_USER_PASSWD = os.getenv('MYSQL_USER_PASSWD') or os.getenv('RDS_PASSWORD') or 'asdf1234'
+    MYSQL_HOST = os.getenv('MYSQL_HOST') or os.getenv('RDS_HOSTNAME') or 'localhost'
+    MYSQL_DB_NAME = os.getenv('MYSQL_DB_NAME') or os.getenv('RDS_DB_NAME') or 'flask'
+
     REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
     REDIS_PASSWD = os.getenv('REDIS_PASSWD')
 
