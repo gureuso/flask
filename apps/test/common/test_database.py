@@ -2,7 +2,7 @@
 import unittest2
 import redis
 
-from apps.common.database import db, redis_session
+from apps.common.database import db_session, redis_session, initDB
 from apps.controllers.route import app
 from apps.models.tests import Test
 
@@ -11,17 +11,16 @@ class TestDatabase(unittest2.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.app.testing = True
-        db.create_all()
+        initDB()
 
     def tearDown(self):
         Test.query.filter_by(message='test01').delete()
-        db.session.commit()
-        db.drop_all()
+        db_session.commit()
 
     def test_connect_db(self):
         t = Test('test01')
-        db.session.add(t)
-        db.session.commit()
+        db_session.add(t)
+        db_session.commit()
 
         rows = Test.query.filter_by(message='test01').all()
         self.assertEqual(len(rows), 1)

@@ -8,15 +8,18 @@ from config import Config
 def ok(data=None, code=20000):
     res = json.dumps({
         "data": data or {},
-        "code": code,
+        "code": code
     })
     return makeResponse(res, code)
 
 
-def error(code):
+def error(code, message=None):
+    if not message:
+        message = Config.ERROR_CODE[code]
+
     res = json.dumps({
         "code": code,
-        "message": Config.ERROR_CODE[code],
+        "message": message
     })
     return makeResponse(res, code)
 
