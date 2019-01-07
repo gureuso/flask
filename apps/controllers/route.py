@@ -2,14 +2,12 @@
 from flask import Flask
 
 from apps.common.response import error
-from apps.common.database import db
 from apps.controllers.index.controllers import app as index_app
 from apps.controllers.test.controllers import app as test_app
 from config import Config
 
 app = Flask(__name__, template_folder=Config.TEMPLATES_DIR)
 app.config.from_object(Config.fromAppMode())
-db.init_app(app)
 app.register_blueprint(index_app, url_prefix='/')
 app.register_blueprint(test_app, url_prefix='/test')
 

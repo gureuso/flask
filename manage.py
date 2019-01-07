@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from apps.common.commands.manager import manager
-from apps.common.database import db
+from apps.common.database import db_session
 from apps.controllers.route import app
 from config import Config
 
 
 @app.teardown_request
 def shutdown_session(exception=None):
-    db.session.remove()
+    db_session.remove()
 
 
 application = app
