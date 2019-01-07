@@ -10,7 +10,6 @@ RUN yum install -y epel-release
 RUN yum install -y git python-pip python-devel gcc
 
 # mysql
-RUN rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
 RUN yum -y install mysql-community-server mysql-community-devel
 
 # flask
