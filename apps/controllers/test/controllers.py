@@ -3,7 +3,7 @@ from flask import Blueprint, abort, render_template
 from datetime import datetime
 
 from apps.common.response import ok
-from apps.common.database import db_session
+from apps.common.database import db_session, initDB
 from apps.models.tests import Test
 
 app = Blueprint('test', __name__)
@@ -16,6 +16,8 @@ def ping():
 
 @app.route('/db', methods=['get'])
 def db():
+    initDB()
+
     now = datetime.now()
     t = Test(now)
     db_session.add(t)
