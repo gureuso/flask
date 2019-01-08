@@ -7,7 +7,7 @@ from redis import Redis
 from config import Config
 
 # db
-engine = create_engine(Config.databaseUrls(), convert_unicode=True)
+engine = create_engine(Config.database_urls(), convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()
@@ -16,6 +16,6 @@ Base.query = db_session.query_property()
 redis_session = Redis(host=Config.REDIS_HOST, password=Config.REDIS_PASSWD)
 
 
-def initDB():
+def init_db():
     import apps.models.tests
     Base.metadata.create_all(bind=engine)

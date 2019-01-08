@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import flask_script
 
-from apps.common.database import initDB
+from apps.common.database import init_db
 
 manager = flask_script.Manager(usage="Perform database operations")
 
@@ -11,4 +11,4 @@ def init():
     """init db tables"""
     import apps.models.tests
 
-    initDB()
+    init_db()

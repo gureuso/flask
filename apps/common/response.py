@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+import flask
 import json
-from flask import make_response
 
 from config import Config
 
@@ -10,7 +10,7 @@ def ok(data=None, code=20000):
         "data": data or {},
         "code": code
     })
-    return makeResponse(res, code)
+    return make_response(res, code)
 
 
 def error(code, message=None):
@@ -21,11 +21,11 @@ def error(code, message=None):
         "code": code,
         "message": message
     })
-    return makeResponse(res, code)
+    return make_response(res, code)
 
 
-def makeResponse(data, code):
+def make_response(data, code):
     statusCode = code / 100
-    resp = make_response(data, statusCode)
+    resp = flask.make_response(data, statusCode)
     resp.headers['Content-Type'] = 'application/json'
     return resp

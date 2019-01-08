@@ -2,12 +2,12 @@
 import flask_script
 import unittest2
 
-from apps.common.commands.db.manager import manager as dbManager
+from apps.common.commands.db.manager import manager as db_manager
 from apps.controllers.route import app
 from config import Config
 
 manager = flask_script.Manager(app, with_default_commands=False)
-manager.add_command("db", dbManager)
+manager.add_command("db", db_manager)
 
 
 @manager.command
