@@ -24,7 +24,7 @@ class Test(unittest2.TestCase):
         result = self.app.get('/test/db')
         self.assertEqual(result.status_code, 200)
         data = json.loads(result.data)
-        self.assertIsNotNone(data['data']['test_row_cnt'])
+        self.assertIsNotNone(data['data']['message'])
 
     def test_get_403(self):
         result = self.app.get('/test/403')
