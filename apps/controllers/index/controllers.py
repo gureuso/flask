@@ -14,5 +14,4 @@ def index():
 
 @app.route('favicon.ico')
 def favicon():
-    return send_from_directory(Config.STATIC_DIR,
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(Config.STATIC_DIR, 'favicon.ico', mimetype='image/vnd.microsoft.icon')

@@ -31,14 +31,14 @@ class Config(object):
     REDIS_PASSWD = os.getenv('REDIS_PASSWD')
 
     @staticmethod
-    def databaseUrls():
+    def database_urls():
         return 'mysql://{0}:{1}@{2}/{3}'.format(Config.MYSQL_USER_NAME,
                                                 Config.MYSQL_USER_PASSWD,
                                                 Config.MYSQL_HOST,
                                                 Config.MYSQL_DB_NAME)
 
     @staticmethod
-    def fromAppMode():
+    def from_app_mode():
         mode = {
             Config.APP_MODE_PRODUCTION: 'config.ProductionConfig',
             Config.APP_MODE_DEVELOPMENT: 'config.DevelopmentConfig',
@@ -50,7 +50,7 @@ class Config(object):
 # flask config
 class FlaskConfig(object):
     SECRET_KEY = os.urandom(24).encode('hex')
-    SQLALCHEMY_DATABASE_URI = Config.databaseUrls()
+    SQLALCHEMY_DATABASE_URI = Config.database_urls()
     # https://stackoverflow.com/questions/33738467/how-do-i-know-if-i-can-disable-sqlalchemy-track-modifications
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False

@@ -3,7 +3,7 @@ from flask import Blueprint, abort, render_template
 from datetime import datetime
 
 from apps.common.response import ok
-from apps.common.database import db_session, initDB
+from apps.common.database import db_session, init_db
 from apps.models.tests import Test
 
 app = Blueprint('test', __name__)
@@ -16,7 +16,7 @@ def ping():
 
 @app.route('/db', methods=['get'])
 def db():
-    initDB()
+    init_db()
 
     now = datetime.now()
     t = Test(now)
@@ -28,7 +28,7 @@ def db():
     Test.query.filter_by(message=now).delete()
     db_session.commit()
 
-    return ok({'testRowCount': cnt})
+    return ok({'test_row_cnt': cnt})
 
 
 @app.route('/403', methods=['get'])

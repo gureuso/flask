@@ -20,6 +20,12 @@ class Test(unittest2.TestCase):
         data = json.loads(result.data)
         self.assertEqual(data['data'], 'pong')
 
+    def test_get_db(self):
+        result = self.app.get('/test/db')
+        self.assertEqual(result.status_code, 200)
+        data = json.loads(result.data)
+        self.assertIsNotNone(data['data']['test_row_cnt'])
+
     def test_get_403(self):
         result = self.app.get('/test/403')
         self.assertEqual(result.status_code, 403)
@@ -47,7 +53,6 @@ class Test(unittest2.TestCase):
     def test_get_html(self):
         result = self.app.get('/test/html')
         self.assertEqual(result.status_code, 200)
-
         match = re.search(r'<h1>html<\/h1>', result.data)
         self.assertTrue(match)
 
