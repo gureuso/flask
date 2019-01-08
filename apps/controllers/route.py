@@ -6,7 +6,7 @@ from apps.controllers.index.controllers import app as index_app
 from apps.controllers.test.controllers import app as test_app
 from config import Config
 
-app = Flask(__name__, template_folder=Config.TEMPLATES_DIR)
+app = Flask(__name__, template_folder=Config.TEMPLATES_DIR, static_folder=Config.STATIC_DIR)
 app.config.from_object(Config.from_app_mode())
 app.register_blueprint(index_app, url_prefix='/')
 app.register_blueprint(test_app, url_prefix='/test')
