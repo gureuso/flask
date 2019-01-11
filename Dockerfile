@@ -21,6 +21,7 @@ RUN virtualenv venv
 RUN . venv/bin/activate
 RUN pip install -r requirements.txt
 RUN python manage.py db migrate
+RUN python manage.py db upgrade
 RUN python manage.py test
 
 CMD python manage.py runserver
