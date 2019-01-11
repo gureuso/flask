@@ -24,11 +24,11 @@ $ pip install -r requirements.txt
 | REDIS_HOST          | redis ip address                 |
 | REDIS_PASSWD        | redis password                   |
 
-### 3. db init
+### 3. db migrate
 ```sh
-$ python manage.py db init
+$ python manage.py db migrate
 ```
-init db tables
+migrate db tables
 
 ### 4. run test code
 ```sh
@@ -39,7 +39,7 @@ $ python manage.py test
 ```sh
 $ python manage.py runserver
 ```
-if you do not install database you can get the database connection error
+if you do not install database, you can get the database connection error.
 
 # Command
 
@@ -66,22 +66,38 @@ run test code with unittest2
 ### db
 ```sh
 $ python manage.py db
-usage: Perform database operations
+usage: Perform database migrations
 
-Perform database operations
+Perform database migrations
 
 positional arguments:
-  {init}
-    init      init db tables
+  {init,revision,migrate,edit,merge,upgrade,downgrade,show,history,heads,branches,current,stamp}
+    init                Creates a new migration repository
+    revision            Create a new revision file.
+    migrate             Alias for 'revision --autogenerate'
+    edit                Edit current revision.
+    merge               Merge two revisions together. Creates a new migration
+                        file
+    upgrade             Upgrade to a later version
+    downgrade           Revert to a previous version
+    show                Show the revision denoted by the given symbol.
+    history             List changeset scripts in chronological order.
+    heads               Show current available heads in the script directory
+    branches            Show current branch points
+    current             Display the current revision for each database.
+    stamp               'stamp' the revision table with the given revision;
+                        don't run any migrations
 
 optional arguments:
-  -?, --help  show this help message and exit
+  -?, --help            show this help message and exit
 ```
-perform database operations
+perform database migrations
+
+https://flask-migrate.readthedocs.io/en/latest/
 
 # Docker
 
-support the docker. however, you need to install database server. below is an example of database dockerfile
+support the docker. however, you need to install database server. below is an example of database dockerfile.
 
 ```dockerfile
 FROM mysql:5.7

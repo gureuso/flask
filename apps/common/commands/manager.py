@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import flask_script
 import unittest2
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate, MigrateCommand
 
-from apps.common.commands.db.manager import manager as db_manager
 from apps.controllers.route import app
 from config import Config
 
+migrate = Migrate(app, SQLAlchemy(app))
 manager = flask_script.Manager(app, with_default_commands=False)
-manager.add_command("db", db_manager)
+manager.add_command("db", MigrateCommand)
 
 
 @manager.command
