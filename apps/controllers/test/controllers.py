@@ -23,12 +23,13 @@ def db():
     db_session.add(t)
     db_session.commit()
 
-    cnt = Test.query.count()
+    row = Test.query.filter_by(message=now).first()
+    message = row.message
 
     Test.query.filter_by(message=now).delete()
     db_session.commit()
 
-    return ok({'test_row_cnt': cnt})
+    return ok({'message': message})
 
 
 @app.route('/403', methods=['get'])
