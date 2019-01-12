@@ -27,6 +27,7 @@ $ pip install -r requirements.txt
 ### 3. db migrate
 ```sh
 $ python manage.py db migrate
+$ python manage.py db upgrade
 ```
 migrate db tables
 
