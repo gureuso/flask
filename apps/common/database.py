@@ -14,8 +14,3 @@ Base.query = db_session.query_property()
 
 # redis
 redis_session = Redis(host=Config.REDIS_HOST, password=Config.REDIS_PASSWD)
-
-
-def init_db():
-    import apps.models.tests
-    Base.metadata.create_all(bind=engine)

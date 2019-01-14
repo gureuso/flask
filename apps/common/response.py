@@ -5,27 +5,29 @@ import json
 from config import Config
 
 
-def ok(data=None, code=20000):
-    res = json.dumps({
-        "data": data or {},
-        "code": code
-    })
-    return make_response(res, code)
+class Response(object):
+    @classmethod
+    def ok(cls, data=None, code=20000):
+        res = json.dumps({
+            "data": data or {},
+            "code": code
+        })
+        return cls.make_response(res, code)
 
+    @classmethod
+    def error(cls, code, message=None):
+        if not message:
+            message = Config.ERROR_CODE[code]
 
-def error(code, message=None):
-    if not message:
-        message = Config.ERROR_CODE[code]
+        res = json.dumps({
+            "code": code,
+            "message": message
+        })
+        return cls.make_response(res, code)
 
-    res = json.dumps({
-        "code": code,
-        "message": message
-    })
-    return make_response(res, code)
-
-
-def make_response(data, code):
-    statusCode = code / 100
-    resp = flask.make_response(data, statusCode)
-    resp.headers['Content-Type'] = 'application/json'
-    return resp
+    @staticmethod
+    def make_response(data, code):
+        statusCode = code / 100
+        resp = flask.make_response(data, statusCode)
+        resp.headers['Content-Type'] = 'application/json'
+        return resp
