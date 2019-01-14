@@ -8,7 +8,7 @@ class Config(object):
     APP_MODE_DEVELOPMENT = 'development'
     APP_MODE_TESTING = 'testing'
 
-    ROOT_DIR = os.getcwd()
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_DIR = '{0}/static'.format(ROOT_DIR)
     TEMPLATES_DIR = '{0}/templates'.format(ROOT_DIR)
     ERROR_CODE = {
