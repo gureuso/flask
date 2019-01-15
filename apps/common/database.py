@@ -1,16 +1,22 @@
 # -*- coding: utf-8 -*-
+import redis
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from redis import Redis
 
 from config import Config
 
-# db
-engine = create_engine(Config.database_urls(), convert_unicode=True)
-db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
+
+def database_urls():
+    return 'mysql://{0}:{1}@{2}/{3}'.format(Config.MYSQL_USER_NAME,
+                                            Config.MYSQL_USER_PASSWD,
+                                            Config.MYSQL_HOST,
+                                            Config.MYSQL_DB_NAME)
+
+
+engine = create_engine(database_urls())
+db_session = scoped_session(sessionmaker(bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()
 
-# redis
-redis_session = Redis(host=Config.REDIS_HOST, password=Config.REDIS_PASSWD)
+redis_session = redis.Redis(host=Config.REDIS_HOST, password=Config.REDIS_PASSWD)

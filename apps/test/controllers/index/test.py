@@ -2,7 +2,7 @@
 import json
 import unittest2
 
-from apps.controllers.route import app
+from apps.controllers.router import app
 
 
 class Test(unittest2.TestCase):

@@ -3,7 +3,7 @@ import unittest2
 import redis
 
 from apps.common.database import db_session, redis_session
-from apps.controllers.route import app
+from apps.controllers.router import app
 from apps.models.tests import Test
 
 

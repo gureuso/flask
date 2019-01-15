@@ -2,27 +2,22 @@
 import importlib
 import os
 
-from config import Config
-
 
 class BlueprintRegister(object):
-    def __init__(self, app):
+    def __init__(self, app, module_path, controller_name):
         self.app = app
+        self.module_path = module_path
+        self.controller_name = controller_name
+        self.controller_path = self.app.root_path
         self.directories = []
-        self.root_path = '{}/apps/controllers'.format(Config.ROOT_DIR)
-        self.register_blueprint()
 
-    def register_blueprint(self):
-        self.find_dir(self.root_path)
+    def register(self):
+        self.find_dir(self.controller_path)
         for dir_path in self.directories:
-            dir_path = dir_path[1:]
-
-            module_path = 'apps.controllers.{}.controllers'.format(dir_path.replace('/', '.'))
+            dir_path = dir_path[1:].replace('/', '.')
+            module_path = '{}.{}.{}'.format(self.module_path, dir_path, self.controller_name)
             module = importlib.import_module(module_path)
-
-            if dir_path == 'index':
-                dir_path = ''
-            self.app.register_blueprint(module.app, url_prefix='/{}'.format(dir_path))
+            self.app.register_blueprint(module.app)
 
     def find_dir(self, path):
         files = os.listdir(path)
@@ -30,5 +25,5 @@ class BlueprintRegister(object):
             isdir = os.path.isdir('{}/{}'.format(path, file_name))
             if isdir:
                 dir_path = '{}/{}'.format(path, file_name)
-                self.directories.append(dir_path.replace(self.root_path, ''))
+                self.directories.append(dir_path.replace(self.controller_path, ''))
                 self.find_dir(dir_path)
