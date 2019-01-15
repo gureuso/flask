@@ -2,16 +2,16 @@
 from flask import Blueprint, abort, render_template
 from datetime import datetime
 
-from apps.common.response import Response
+from apps.common.response import ok
 from apps.common.database import db_session
 from apps.models.tests import Test
 
-app = Blueprint('test', __name__)
+app = Blueprint('test', __name__, url_prefix='/test')
 
 
 @app.route('/ping', methods=['get'])
 def ping():
-    return Response.ok('pong')
+    return ok('pong')
 
 
 @app.route('/db', methods=['get'])
@@ -27,7 +27,7 @@ def db():
     Test.query.filter_by(message=now).delete()
     db_session.commit()
 
-    return Response.ok({'message': message})
+    return ok({'message': message})
 
 
 @app.route('/403', methods=['get'])

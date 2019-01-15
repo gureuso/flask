@@ -1,5 +1,5 @@
 # Flask
-Flask simple example
+Flask example
 
 # Usage
 
