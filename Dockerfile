@@ -14,8 +14,8 @@ RUN yum -y install http://dev.mysql.com/get/mysql57-community-release-el7-11.noa
 RUN yum -y install mysql-community-client mysql-community-devel
 
 # flask
-RUN git clone https://github.com/gureuso/Flask.git
-WORKDIR /root/Flask
+RUN git clone https://github.com/gureuso/flask.git
+WORKDIR /root/flask
 RUN pip install virtualenv
 RUN virtualenv venv
 RUN . venv/bin/activate
