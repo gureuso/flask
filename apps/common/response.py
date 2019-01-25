@@ -6,7 +6,7 @@ from config import Config
 
 
 def make_response(data, code):
-    status_code = code / 100
+    status_code = int(code / 100)
     resp = flask.make_response(data, status_code)
     resp.headers['Content-Type'] = 'application/json'
     return resp
