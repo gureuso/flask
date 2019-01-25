@@ -29,7 +29,7 @@ class TestDatabase(unittest2.TestCase):
             client_list = redis_session.client_list()
             self.assertIsNot(client_list, [])
         except redis.exceptions.ConnectionError as e:
-            print e
+            print(e)
 
 
 if __name__ == '__main__':

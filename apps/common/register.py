@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import importlib
 import os
+import re
 
 
 class BlueprintRegister(object):
@@ -23,7 +24,20 @@ class BlueprintRegister(object):
         files = os.listdir(path)
         for file_name in files:
             isdir = os.path.isdir('{}/{}'.format(path, file_name))
-            if isdir:
-                dir_path = '{}/{}'.format(path, file_name)
-                self.directories.append(dir_path.replace(self.controller_path, ''))
-                self.find_dir(dir_path)
+            if not isdir:
+                continue
+            ignore = self.ignore(file_name)
+            if ignore:
+                continue
+            self.append_dir(path, file_name)
+
+    def append_dir(self, path, file_name):
+        dir_path = '{}/{}'.format(path, file_name)
+        self.directories.append(dir_path.replace(self.controller_path, ''))
+        self.find_dir(dir_path)
+
+    def ignore(self, name):
+        # __pycache__/
+        if re.match('__.*__', name):
+            return True
+        return False
