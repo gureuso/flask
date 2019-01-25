@@ -5,10 +5,10 @@ Flask example
 
 ### 1. install virtualenv
 ```sh
-$ pip install virtualenv
-$ mkdir venv
+$ pip3 install virtualenv
+$ virtualenv -p python3 venv
 $ . venv/bin/activate
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 ### 2. set environment
