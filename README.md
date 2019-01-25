@@ -26,19 +26,19 @@ $ pip3 install -r requirements.txt
 
 ### 3. db migrate
 ```sh
-$ python manage.py db migrate
-$ python manage.py db upgrade
+$ python3 manage.py db migrate
+$ python3 manage.py db upgrade
 ```
 migrate db tables
 
 ### 4. run test code
 ```sh
-$ python manage.py test
+$ python3 manage.py test
 ```
 
 ### 5. run flask server
 ```sh
-$ python manage.py runserver
+$ python3 manage.py runserver
 ```
 if you do not install database, you can get the database connection error.
 
@@ -46,7 +46,7 @@ if you do not install database, you can get the database connection error.
 
 ### runserver
 ```sh
-$ python manage.py runserver
+$ python3 manage.py runserver
 ```
 
 optional arguments:
@@ -59,14 +59,14 @@ run flask server
 
 ### test
 ```sh
-$ python manage.py test
+$ python3 manage.py test
 ```
 run test code with unittest2
 
 
 ### db
 ```sh
-$ python manage.py db
+$ python3 manage.py db
 usage: Perform database migrations
 
 Perform database migrations
