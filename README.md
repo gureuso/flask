@@ -17,10 +17,10 @@ $ pip3 install -r requirements.txt
 | APP_MODE            | choose from production, development, testing |
 | APP_HOST            | ip address                       |
 | APP_PORT            | port number                      |
-| MYSQL_USER_NAME     | mysql user name                  |
-| MYSQL_USER_PASSWD   | mysql user password              |
-| MYSQL_HOST          | mysql host                       |
-| MYSQL_DB_NAME       | mysql db name                    |
+| DB_USER_NAME        | db user name                     |
+| DB_USER_PASSWD      | db user password                 |
+| DB_HOST             | db host                          |
+| DB_DB_NAME          | db name                          |
 | REDIS_HOST          | redis ip address                 |
 | REDIS_PASSWD        | redis password                   |
 
