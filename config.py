@@ -4,10 +4,6 @@ import os
 
 # app config
 class Config(object):
-    APP_MODE_PRODUCTION = 'production'
-    APP_MODE_DEVELOPMENT = 'development'
-    APP_MODE_TESTING = 'testing'
-
     ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_DIR = '{0}/static'.format(ROOT_DIR)
     TEMPLATES_DIR = '{0}/templates'.format(ROOT_DIR)
@@ -18,24 +14,21 @@ class Config(object):
         50000: 'Internal Server Error',
     }
 
+    APP_MODE_PRODUCTION = 'production'
+    APP_MODE_DEVELOPMENT = 'development'
+    APP_MODE_TESTING = 'testing'
+
     APP_MODE = os.getenv('APP_MODE', APP_MODE_PRODUCTION)
     APP_HOST = os.getenv('APP_HOST', '0.0.0.0')
     APP_PORT = int(os.getenv('APP_PORT', 80))
 
-    MYSQL_USER_NAME = os.getenv('MYSQL_USER_NAME') or os.getenv('RDS_USERNAME') or 'root'
-    MYSQL_USER_PASSWD = os.getenv('MYSQL_USER_PASSWD') or os.getenv('RDS_PASSWORD') or 'asdf1234'
-    MYSQL_HOST = os.getenv('MYSQL_HOST') or os.getenv('RDS_HOSTNAME') or 'localhost'
-    MYSQL_DB_NAME = os.getenv('MYSQL_DB_NAME') or os.getenv('RDS_DB_NAME') or 'flask'
+    DB_USER_NAME = os.getenv('DB_USER_NAME') or os.getenv('RDS_USERNAME') or 'root'
+    DB_USER_PASSWD = os.getenv('DB_USER_PASSWD') or os.getenv('RDS_PASSWORD') or 'asdf1234'
+    DB_HOST = os.getenv('DB_HOST') or os.getenv('RDS_HOSTNAME') or 'localhost'
+    DB_NAME = os.getenv('DB_NAME') or os.getenv('RDS_DB_NAME') or 'flask'
 
     REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
     REDIS_PASSWD = os.getenv('REDIS_PASSWD')
-
-    @staticmethod
-    def database_urls():
-        return 'mysql://{0}:{1}@{2}/{3}'.format(Config.MYSQL_USER_NAME,
-                                                Config.MYSQL_USER_PASSWD,
-                                                Config.MYSQL_HOST,
-                                                Config.MYSQL_DB_NAME)
 
     @staticmethod
     def from_app_mode():
@@ -45,6 +38,14 @@ class Config(object):
             Config.APP_MODE_TESTING: 'config.TestingConfig',
         }
         return mode.get(Config.APP_MODE, mode[Config.APP_MODE_DEVELOPMENT])
+
+    @staticmethod
+    def database_urls(dialect='mysql'):
+        return '{}://{}:{}@{}/{}'.format(dialect,
+                                         Config.DB_USER_NAME,
+                                         Config.DB_USER_PASSWD,
+                                         Config.DB_HOST,
+                                         Config.DB_NAME)
 
 
 # flask config
