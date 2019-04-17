@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 import unittest2
-from apps.models.database import init_db, db_session
+import redis
 
+from apps.common.database import db_session, redis_session
+from apps.controllers.router import app
 from apps.models.tests import Test
-from run import app
 
 
 class TestDatabase(unittest2.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.app.testing = True
-        init_db()
 
     def tearDown(self):
         Test.query.filter_by(message='test01').delete()
@@ -23,6 +23,13 @@ class TestDatabase(unittest2.TestCase):
 
         rows = Test.query.filter_by(message='test01').all()
         self.assertEqual(len(rows), 1)
+
+    def test_connect_redis(self):
+        try:
+            client_list = redis_session.client_list()
+            self.assertIsNot(client_list, [])
+        except redis.exceptions.ConnectionError as e:
+            print(e)
 
 
 if __name__ == '__main__':

@@ -4,11 +4,7 @@ import os
 
 # app config
 class Config(object):
-    APP_MODE_PRODUCTION = 'production'
-    APP_MODE_DEVELOPMENT = 'development'
-    APP_MODE_TESTING = 'testing'
-
-    ROOT_DIR = os.getcwd()
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_DIR = '{0}/static'.format(ROOT_DIR)
     TEMPLATES_DIR = '{0}/templates'.format(ROOT_DIR)
     ERROR_CODE = {
@@ -18,23 +14,24 @@ class Config(object):
         50000: 'Internal Server Error',
     }
 
-    APP_MODE = os.getenv('APP_MODE', APP_MODE_DEVELOPMENT)
-    APP_HOST = os.getenv('APP_HOST', 'localhost')
-    APP_PORT = int(os.getenv('APP_PORT', 5000))
-    MYSQL_USER_NAME = os.getenv('MYSQL_USER_NAME', 'root')
-    MYSQL_USER_PASSWD = os.getenv('MYSQL_USER_PASSWD', 'asdf1234')
-    MYSQL_HOST = os.getenv('MYSQL_HOST', 'localhost')
-    MYSQL_DB_NAME = os.getenv('MYSQL_DB_NAME', 'flask')
+    APP_MODE_PRODUCTION = 'production'
+    APP_MODE_DEVELOPMENT = 'development'
+    APP_MODE_TESTING = 'testing'
+
+    APP_MODE = os.getenv('APP_MODE', APP_MODE_PRODUCTION)
+    APP_HOST = os.getenv('APP_HOST', '0.0.0.0')
+    APP_PORT = int(os.getenv('APP_PORT', 80))
+
+    DB_USER_NAME = os.getenv('DB_USER_NAME') or os.getenv('RDS_USERNAME') or 'root'
+    DB_USER_PASSWD = os.getenv('DB_USER_PASSWD') or os.getenv('RDS_PASSWORD') or 'asdf1234'
+    DB_HOST = os.getenv('DB_HOST') or os.getenv('RDS_HOSTNAME') or 'localhost'
+    DB_NAME = os.getenv('DB_NAME') or os.getenv('RDS_DB_NAME') or 'flask'
+
+    REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
+    REDIS_PASSWD = os.getenv('REDIS_PASSWD')
 
     @staticmethod
-    def databaseUrls():
-        return 'mysql://{0}:{1}@{2}/{3}'.format(Config.MYSQL_USER_NAME,
-                                                Config.MYSQL_USER_PASSWD,
-                                                Config.MYSQL_HOST,
-                                                Config.MYSQL_DB_NAME)
-
-    @staticmethod
-    def fromAppMode():
+    def from_app_mode():
         mode = {
             Config.APP_MODE_PRODUCTION: 'config.ProductionConfig',
             Config.APP_MODE_DEVELOPMENT: 'config.DevelopmentConfig',
@@ -42,19 +39,31 @@ class Config(object):
         }
         return mode.get(Config.APP_MODE, mode[Config.APP_MODE_DEVELOPMENT])
 
+    @staticmethod
+    def database_urls(dialect='mysql'):
+        return '{}://{}:{}@{}/{}'.format(dialect,
+                                         Config.DB_USER_NAME,
+                                         Config.DB_USER_PASSWD,
+                                         Config.DB_HOST,
+                                         Config.DB_NAME)
+
 
 # flask config
 class FlaskConfig(object):
-    SECRET_KEY = os.urandom(24).encode('hex')
+    SECRET_KEY = os.urandom(24).hex()
+    SQLALCHEMY_DATABASE_URI = Config.database_urls()
+    # https://stackoverflow.com/questions/33738467/how-do-i-know-if-i-can-disable-sqlalchemy-track-modifications
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     TESTING = False
 
 
 class ProductionConfig(FlaskConfig):
-    DEBUG = False
+    pass
 
 
 class DevelopmentConfig(FlaskConfig):
+    SQLALCHEMY_ECHO = True
     DEBUG = True
     TESTING = True
 

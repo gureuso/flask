@@ -4,7 +4,7 @@ from flask import Blueprint, send_from_directory
 from apps.common.response import ok
 from config import Config
 
-app = Blueprint('index', __name__)
+app = Blueprint('index', __name__, url_prefix='/')
 
 
 @app.route('/', methods=['get'])
@@ -14,5 +14,4 @@ def index():
 
 @app.route('favicon.ico')
 def favicon():
-    return send_from_directory(Config.STATIC_DIR,
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(Config.STATIC_DIR, 'favicon.ico', mimetype='image/vnd.microsoft.icon')

@@ -1,28 +1,31 @@
 # -*- coding: utf-8 -*-
+import flask
 import json
-from flask import make_response
 
 from config import Config
 
 
-def ok(data=None, code=20000):
-    res = json.dumps({
-        "data": data or {},
-        "code": code,
-    })
-    return makeResponse(res, code)
-
-
-def error(code):
-    res = json.dumps({
-        "code": code,
-        "message": Config.ERROR_CODE[code],
-    })
-    return makeResponse(res, code)
-
-
-def makeResponse(data, code):
-    statusCode = code / 100
-    resp = make_response(data, statusCode)
+def make_response(data, code):
+    status_code = int(code / 100)
+    resp = flask.make_response(data, status_code)
     resp.headers['Content-Type'] = 'application/json'
     return resp
+
+
+def ok(data=None, code=20000):
+    res = json.dumps({
+        "code": code,
+        "data": data or {}
+    })
+    return make_response(res, code)
+
+
+def error(code, message=None):
+    if not message:
+        message = Config.ERROR_CODE[code]
+
+    res = json.dumps({
+        "code": code,
+        "message": message
+    })
+    return make_response(res, code)

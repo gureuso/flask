@@ -2,7 +2,7 @@
 import json
 import unittest2
 
-from run import app
+from apps.controllers.router import app
 
 
 class Test(unittest2.TestCase):
@@ -16,8 +16,9 @@ class Test(unittest2.TestCase):
     def test_get_index(self):
         result = self.app.get('/')
         self.assertEqual(result.status_code, 200)
-        data = json.loads(result.data)
+        data = json.loads(result.data.decode('utf-8'))
         self.assertEqual(data['data'], 'Index')
+
 
 if __name__ == '__main__':
     unittest2.main()
