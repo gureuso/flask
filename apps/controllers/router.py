@@ -42,6 +42,6 @@ def shutdown_session(exception=None):
 @app.before_request
 def before_request():
     if request.url.startswith('http://'):
-        request.headers.append({'HTTP_X_FORWARDED_PROTO': 'https'})
+        request.headers.update({'HTTP_X_FORWARDED_PROTO': 'https'})
         url = request.url.replace('http://', 'https://', 1)
         return redirect(url, code=301)
