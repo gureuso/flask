@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
-from flask import redirect
-from flask import request
 
 from apps.common.database import db_session
 from apps.common.register import BlueprintRegister
@@ -37,11 +35,3 @@ def internal_server_error(err):
 @app.teardown_request
 def shutdown_session(exception=None):
     db_session.remove()
-
-
-@app.before_request
-def before_request():
-    if request.url.startswith('http://'):
-        request.headers['HTTP_X_FORWARDED_PROTO'] = 'https'
-        url = request.url.replace('http://', 'https://', 1)
-        return redirect(url, code=301)
