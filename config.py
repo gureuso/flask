@@ -41,7 +41,7 @@ class Config(object):
 
     @staticmethod
     def database_urls(dialect='mysql'):
-        return '{}://{}:{}@{}/{}'.format(dialect,
+        return '{}://{}:{}@{}/{}?charset=utf8'.format(dialect,
                                          Config.DB_USER_NAME,
                                          Config.DB_USER_PASSWD,
                                          Config.DB_HOST,
