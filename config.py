@@ -8,9 +8,10 @@ class Config(object):
     STATIC_DIR = '{0}/static'.format(ROOT_DIR)
     TEMPLATES_DIR = '{0}/templates'.format(ROOT_DIR)
     ERROR_CODE = {
+        40000: 'Bad Request',
+        41000: 'Gone',
         40300: 'Forbidden',
         40400: 'Not Found',
-        41000: 'Gone',
         50000: 'Internal Server Error',
     }
 
@@ -40,18 +41,18 @@ class Config(object):
         return mode.get(Config.APP_MODE, mode[Config.APP_MODE_DEVELOPMENT])
 
     @staticmethod
-    def database_urls(dialect='mysql'):
-        return '{}://{}:{}@{}/{}?charset=utf8'.format(dialect,
-                                         Config.DB_USER_NAME,
-                                         Config.DB_USER_PASSWD,
-                                         Config.DB_HOST,
-                                         Config.DB_NAME)
+    def database_url(dialect='mysql'):
+        if dialect == 'mongodb':
+            return '{}://{}:{}@{}'.format(dialect, Config.DB_USER_NAME, Config.DB_USER_PASSWD, Config.DB_HOST)
+
+        return '{}://{}:{}@{}/{}?charset=utf8'.format(dialect, Config.DB_USER_NAME, Config.DB_USER_PASSWD,
+                                                      Config.DB_HOST, Config.DB_NAME)
 
 
 # flask config
 class FlaskConfig(object):
     SECRET_KEY = os.urandom(24).hex()
-    SQLALCHEMY_DATABASE_URI = Config.database_urls()
+    SQLALCHEMY_DATABASE_URI = Config.database_url()
     # https://stackoverflow.com/questions/33738467/how-do-i-know-if-i-can-disable-sqlalchemy-track-modifications
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False

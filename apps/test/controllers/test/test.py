@@ -20,12 +20,6 @@ class Test(unittest2.TestCase):
         data = json.loads(result.data.decode('utf-8'))
         self.assertEqual(data['data'], 'pong')
 
-    def test_get_db(self):
-        result = self.app.get('/test/db')
-        self.assertEqual(result.status_code, 200)
-        data = json.loads(result.data.decode('utf-8'))
-        self.assertIsNotNone(data['data']['message'])
-
     def test_get_403(self):
         result = self.app.get('/test/403')
         self.assertEqual(result.status_code, 403)

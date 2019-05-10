@@ -9,7 +9,7 @@ from config import Config
 
 app = Flask(__name__, template_folder=Config.TEMPLATES_DIR, static_folder=Config.STATIC_DIR)
 app.config.from_object(Config.from_app_mode())
-BlueprintRegister(app, 'apps.controllers', 'controllers').register()
+BlueprintRegister(app=app, module_path='apps.controllers', controller_name='controllers').register()
 
 
 @app.errorhandler(403)
