@@ -16,3 +16,7 @@ Thumbs.db
 # vim
 *.swp
 *.swo
+
+# flask
+migrations/versions/*
+!migrations/versions/.keep
