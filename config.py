@@ -20,7 +20,7 @@ class Config(object):
     APP_MODE_TESTING = 'testing'
 
     APP_MODE = os.getenv('APP_MODE', APP_MODE_PRODUCTION)
-    APP_VENV = os.getenv('APP_VENV', 1)
+    APP_VENV = os.getenv('APP_VENV', 'true')
     APP_HOST = os.getenv('APP_HOST', '0.0.0.0')
     APP_PORT = int(os.getenv('APP_PORT', 80))
 
