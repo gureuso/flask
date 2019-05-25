@@ -2,7 +2,7 @@
 import unittest2
 import redis
 
-from apps.common.database import redis_session, mongo_client
+from apps.common.database import redis_session
 from apps.controllers.router import app
 from apps.models.tests import Test
 
@@ -18,12 +18,6 @@ class TestDatabase(unittest2.TestCase):
             self.assertEqual(len(rows), 0)
         except:
             print('mysql connection error')
-
-    def test_connect_mongodb(self):
-        try:
-            mongo_client.admin.command('ismaster')
-        except:
-            print('mongodb connection error')
 
     def test_connect_redis(self):
         try:
