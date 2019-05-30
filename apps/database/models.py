@@ -15,4 +15,4 @@ class Test(Base):
         self.message = message
 
     def __repr__(self):
-        return '<Test {0}>'.format(self.message)
+        return '<Test {0}>'.format(self.id)
