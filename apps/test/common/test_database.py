@@ -3,8 +3,8 @@ import redis
 import unittest2
 
 from apps.common.database import redis_session
-from apps.common.models import Test
 from apps.controllers.router import app
+from apps.database.models import Test
 
 
 class TestDatabase(unittest2.TestCase):
