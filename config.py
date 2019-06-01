@@ -4,7 +4,7 @@ import json
 
 
 class JsonConfig:
-    DATA = json.loads(open('config.json').read())
+    DATA = json.loads(open('{}/config.json'.format(Config.ROOT_DIR)).read())
 
     @staticmethod
     def get_data(varname, value=None):
