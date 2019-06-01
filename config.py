@@ -3,8 +3,11 @@ import os
 import json
 
 
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 class JsonConfig:
-    DATA = json.loads(open('{}/config.json'.format(Config.ROOT_DIR)).read())
+    DATA = json.loads(open('{}/config.json'.format(ROOT_DIR)).read())
 
     @staticmethod
     def get_data(varname, value=None):
@@ -13,7 +16,7 @@ class JsonConfig:
 
 # app config
 class Config:
-    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+    ROOT_DIR = ROOT_DIR
     STATIC_DIR = '{0}/static'.format(ROOT_DIR)
     TEMPLATES_DIR = '{0}/templates'.format(ROOT_DIR)
     ERROR_CODE = {
