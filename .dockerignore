@@ -20,3 +20,4 @@ Thumbs.db
 # flask
 migrations/versions/*
 !migrations/versions/.keep
+config.json
