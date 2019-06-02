@@ -15,7 +15,6 @@ $ pip install -r requirements.txt
 | Name                | Description                      |
 | ------------------- | -------------------------------- |
 | APP_MODE            | choose from production, development, testing |
-| APP_VENV            | choose venv mode from true, false|
 | APP_HOST            | ip address                       |
 | APP_PORT            | port number                      |
 | DB_USER_NAME        | db user name                     |
