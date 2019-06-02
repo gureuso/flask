@@ -32,7 +32,6 @@ class Config:
     APP_MODE_TESTING = 'testing'
 
     APP_MODE = JsonConfig.get_data('APP_MODE', APP_MODE_PRODUCTION)
-    APP_VENV = JsonConfig.get_data('APP_VENV', 'true')
     APP_HOST = JsonConfig.get_data('APP_HOST', '0.0.0.0')
     APP_PORT = int(JsonConfig.get_data('APP_PORT', 80))
 
