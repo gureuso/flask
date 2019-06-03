@@ -11,7 +11,7 @@ $ . venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-### 2. set environment
+### 2. set environment or create config.json
 | Name                | Description                      |
 | ------------------- | -------------------------------- |
 | APP_MODE            | choose from production, development, testing |
