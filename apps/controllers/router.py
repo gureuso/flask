@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-from apps.common.database import db_session
 from apps.common.register import BlueprintRegister
 from apps.common.response import error
 
@@ -9,6 +9,7 @@ from config import Config
 
 app = Flask(__name__, template_folder=Config.TEMPLATES_DIR, static_folder=Config.STATIC_DIR)
 app.config.from_object(Config.from_app_mode())
+db = SQLAlchemy(app)
 BlueprintRegister(app=app, module_path='apps.controllers', controller_name='controllers').register()
 
 
@@ -34,4 +35,4 @@ def internal_server_error(err):
 
 @app.teardown_request
 def shutdown_session(exception=None):
-    db_session.remove()
+    db.session.remove()

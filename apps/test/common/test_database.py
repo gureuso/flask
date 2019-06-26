@@ -2,7 +2,7 @@
 import redis
 import unittest2
 
-from apps.common.database import redis_session
+from apps.database.session import cache
 from apps.controllers.router import app
 from apps.database.models import Test
 
@@ -21,7 +21,7 @@ class TestDatabase(unittest2.TestCase):
 
     def test_connect_redis(self):
         try:
-            client_list = redis_session.client_list()
+            client_list = cache.client_list()
             self.assertIsNot(client_list, [])
         except redis.exceptions.ConnectionError as e:
             print(e)
