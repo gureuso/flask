@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
+from apps.controllers.router import app
 from apps.database.session import db
+
+
+def get_model(model):
+    if app.testing:
+        return model.test_model
+    return model
 
 
 class Test(db.Model):
