@@ -3,6 +3,6 @@ Flask-Script==2.0.6
 Flask-Migrate==2.3.1
 Flask-SQLAlchemy==2.4.0
 gunicorn==19.9.0
-mysqlclient==1.4.2.post1
+mysqlclient==1.4.2
 redis==2.10.6
 unittest2==1.1.0
