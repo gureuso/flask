@@ -13,11 +13,8 @@ class TestDatabase(unittest2.TestCase):
         self.app.testing = True
 
     def test_connect_db(self):
-        try:
-            rows = Test.query.filter_by(message='test01').all()
-            self.assertEqual(len(rows), 0)
-        except:
-            print('mysql connection error')
+        rows = Test.query.filter_by(message='test01').all()
+        self.assertEqual(len(rows), 0)
 
     def test_connect_redis(self):
         try:
