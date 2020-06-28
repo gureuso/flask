@@ -23,6 +23,7 @@ $ pip install -r requirements.txt
 | DB_DB_NAME          | db name                          |
 | REDIS_HOST          | redis ip address                 |
 | REDIS_PASSWD        | redis password                   |
+| TESTING             | if using test table true else false |
 
 ### 3. db migrate
 ```sh
