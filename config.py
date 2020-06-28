@@ -13,6 +13,12 @@ class JsonConfig:
     def get_data(varname, value=None):
         return JsonConfig.DATA.get(varname) or os.getenv(varname) or value
 
+    @staticmethod
+    def set_data(key, value):
+        JsonConfig.DATA[key] = value
+        with open('{}/config.json'.format(ROOT_DIR), 'w') as f:
+            json.dump(JsonConfig.DATA, f, indent=4)
+
 
 # app config
 class Config:
