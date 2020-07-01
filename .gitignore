@@ -18,6 +18,5 @@ Thumbs.db
 *.swo
 
 # flask
-migrations/versions/*
 !migrations/versions/.keep
 config.json
