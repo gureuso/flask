@@ -96,19 +96,3 @@ optional arguments:
 perform database migrations
 
 https://flask-migrate.readthedocs.io/en/latest/
-
-# Docker
-
-support the docker. however, you need to install database server. below is an example of database dockerfile.
-
-```dockerfile
-FROM mysql:5.7
-MAINTAINER gureuso <gureuso.github.io>
-
-USER root
-
-ENV MYSQL_ROOT_PASSWORD password
-ENV MYSQL_DATABASE flask
-
-EXPOSE 3306
-```
