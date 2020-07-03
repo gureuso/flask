@@ -96,3 +96,6 @@ optional arguments:
 perform database migrations
 
 https://flask-migrate.readthedocs.io/en/latest/
+
+test
+test
