@@ -23,7 +23,9 @@ def test():
     suite = loader.discover(start_dir)
 
     runner = unittest2.TextTestRunner()
-    runner.run(suite)
+    r = runner.run(suite)
+    if not r.wasSuccessful():
+        raise Exception('test err')
 
     JsonConfig.set_data('TESTING', False)
 
