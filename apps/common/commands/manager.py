@@ -26,7 +26,7 @@ def test():
     r = runner.run(suite)
     if not r.wasSuccessful():
         import sys
-        sys.exit(1)
+        sys.stderr.write('fail\n')
 
     JsonConfig.set_data('TESTING', False)
 
