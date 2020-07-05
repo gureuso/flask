@@ -1,8 +1,8 @@
 # python
 *.pyo
 *.pyc
-.idea
-venv
+.idea/
+venv/
 
 # mac
 .DS_Store
@@ -16,3 +16,7 @@ Thumbs.db
 # vim
 *.swp
 *.swo
+
+# flask
+!migrations/versions/.keep
+config.json
