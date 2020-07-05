@@ -23,7 +23,12 @@ def test():
     suite = loader.discover(start_dir)
 
     runner = unittest2.TextTestRunner()
-    runner.run(suite)
+    r = runner.run(suite)
+
+    if r.wasSuccessful():
+        exit(0)
+    else:
+        exit(1)
 
     JsonConfig.set_data('TESTING', False)
 
