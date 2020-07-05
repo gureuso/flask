@@ -16,9 +16,6 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def test():
     """test code"""
-    import sys
-    sys.stdout.flush()
-
     JsonConfig.set_data('TESTING', True)
 
     loader = unittest2.TestLoader()

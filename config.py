@@ -1,40 +1,56 @@
 # -*- coding: utf-8 -*-
 import os
+import json
+
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+class JsonConfig:
+    DATA = json.loads(open('{}/config.json'.format(ROOT_DIR)).read())
+
+    @staticmethod
+    def get_data(varname, value=None):
+        return JsonConfig.DATA.get(varname) or os.getenv(varname) or value
+
+    @staticmethod
+    def set_data(key, value):
+        JsonConfig.DATA[key] = value
+        with open('{}/config.json'.format(ROOT_DIR), 'w') as f:
+            json.dump(JsonConfig.DATA, f, indent=4)
 
 
 # app config
-class Config(object):
+class Config:
+    ROOT_DIR = ROOT_DIR
+    STATIC_DIR = '{0}/static'.format(ROOT_DIR)
+    TEMPLATES_DIR = '{0}/templates'.format(ROOT_DIR)
+    ERROR_CODE = {
+        40000: 'Bad Request',
+        41000: 'Gone',
+        40300: 'Forbidden',
+        40400: 'Not Found',
+        50000: 'Internal Server Error',
+    }
+
     APP_MODE_PRODUCTION = 'production'
     APP_MODE_DEVELOPMENT = 'development'
     APP_MODE_TESTING = 'testing'
 
-    ROOT_DIR = os.getcwd()
-    STATIC_DIR = '{0}/static'.format(ROOT_DIR)
-    TEMPLATES_DIR = '{0}/templates'.format(ROOT_DIR)
-    ERROR_CODE = {
-        40300: 'Forbidden',
-        40400: 'Not Found',
-        41000: 'Gone',
-        50000: 'Internal Server Error',
-    }
+    APP_MODE = JsonConfig.get_data('APP_MODE', APP_MODE_PRODUCTION)
+    APP_HOST = JsonConfig.get_data('APP_HOST', '0.0.0.0')
+    APP_PORT = int(JsonConfig.get_data('APP_PORT', 80))
 
-    APP_MODE = os.getenv('APP_MODE', APP_MODE_DEVELOPMENT)
-    APP_HOST = os.getenv('APP_HOST', 'localhost')
-    APP_PORT = int(os.getenv('APP_PORT', 5000))
-    MYSQL_USER_NAME = os.getenv('MYSQL_USER_NAME', 'root')
-    MYSQL_USER_PASSWD = os.getenv('MYSQL_USER_PASSWD', 'asdf1234')
-    MYSQL_HOST = os.getenv('MYSQL_HOST', 'localhost')
-    MYSQL_DB_NAME = os.getenv('MYSQL_DB_NAME', 'flask')
+    DB_USER_NAME = JsonConfig.get_data('DB_USER_NAME', 'root')
+    DB_USER_PASSWD = JsonConfig.get_data('DB_USER_PASSWD', 'password')
+    DB_HOST = JsonConfig.get_data('DB_HOST', 'localhost')
+    DB_NAME = JsonConfig.get_data('DB_NAME', 'flask')
+
+    REDIS_HOST = JsonConfig.get_data('REDIS_HOST', 'localhost')
+    REDIS_PASSWD = JsonConfig.get_data('REDIS_PASSWD')
 
     @staticmethod
-    def databaseUrls():
-        return 'mysql://{0}:{1}@{2}/{3}'.format(Config.MYSQL_USER_NAME,
-                                                Config.MYSQL_USER_PASSWD,
-                                                Config.MYSQL_HOST,
-                                                Config.MYSQL_DB_NAME)
-
-    @staticmethod
-    def fromAppMode():
+    def from_app_mode():
         mode = {
             Config.APP_MODE_PRODUCTION: 'config.ProductionConfig',
             Config.APP_MODE_DEVELOPMENT: 'config.DevelopmentConfig',
@@ -42,19 +58,31 @@ class Config(object):
         }
         return mode.get(Config.APP_MODE, mode[Config.APP_MODE_DEVELOPMENT])
 
+    @staticmethod
+    def database_url(dialect='mysql'):
+        if dialect == 'mongodb':
+            return '{}://{}:{}@{}'.format(dialect, Config.DB_USER_NAME, Config.DB_USER_PASSWD, Config.DB_HOST)
+
+        return '{}://{}:{}@{}/{}?charset=utf8'.format(dialect, Config.DB_USER_NAME, Config.DB_USER_PASSWD,
+                                                      Config.DB_HOST, Config.DB_NAME)
+
 
 # flask config
-class FlaskConfig(object):
-    SECRET_KEY = os.urandom(24).encode('hex')
+class FlaskConfig:
+    SECRET_KEY = os.urandom(24).hex()
+    SQLALCHEMY_DATABASE_URI = Config.database_url()
+    # https://stackoverflow.com/questions/33738467/how-do-i-know-if-i-can-disable-sqlalchemy-track-modifications
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     TESTING = False
 
 
 class ProductionConfig(FlaskConfig):
-    DEBUG = False
+    pass
 
 
 class DevelopmentConfig(FlaskConfig):
+    SQLALCHEMY_ECHO = True
     DEBUG = True
     TESTING = True
 
