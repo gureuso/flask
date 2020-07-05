@@ -14,7 +14,7 @@ class TestDatabase(unittest2.TestCase):
 
     def test_connect_db(self):
         rows = Test.query.filter_by(message='test01').all()
-        self.assertEqual(len(rows), 0)
+        self.assertEqual(len(rows), 1)
 
     def test_connect_redis(self):
         try:
