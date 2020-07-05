@@ -25,7 +25,8 @@ def test():
     runner = unittest2.TextTestRunner()
     r = runner.run(suite)
     if not r.wasSuccessful():
-        exit(1)
+        import sys
+        sys.exit(1)
 
     JsonConfig.set_data('TESTING', False)
 
