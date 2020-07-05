@@ -24,9 +24,11 @@ def test():
 
     runner = unittest2.TextTestRunner()
     r = runner.run(suite)
-    if not r.wasSuccessful():
-        import sys
-        sys.stderr.write('fail\n')
+
+    if r.wasSuccessful():
+        print('success')
+    else:
+        print('fail')
 
     JsonConfig.set_data('TESTING', False)
 
