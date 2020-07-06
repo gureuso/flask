@@ -1,2 +1,0 @@
-Error 61 connecting to localhost:6379. Connection refused.
-fail
