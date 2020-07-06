@@ -27,7 +27,6 @@ def test():
 
     if r.wasSuccessful():
         print('success')
-        exit(1)
     else:
         print('fail')
 
