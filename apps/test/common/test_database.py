@@ -17,11 +17,8 @@ class TestDatabase(unittest2.TestCase):
         self.assertEqual(len(rows), 1)
 
     def test_connect_redis(self):
-        try:
-            client_list = cache.client_list()
-            self.assertIsNot(client_list, [])
-        except redis.exceptions.ConnectionError as e:
-            print(e)
+        client_list = cache.client_list()
+        self.assertIsNot(client_list, [])
 
 
 if __name__ == '__main__':
