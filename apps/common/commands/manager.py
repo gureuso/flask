@@ -29,6 +29,7 @@ def test():
         print('success')
     else:
         print('fail')
+        exit(1)
 
     JsonConfig.set_data('TESTING', False)
 
