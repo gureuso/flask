@@ -2,7 +2,7 @@ flask==1.0.2
 Flask-Script==2.0.6
 Flask-Migrate==2.3.1
 Flask-SQLAlchemy==2.4.0
-gunicorn==19.9.0
+Flask-WTF==0.14.3
 mysqlclient==2.0.3
 redis==2.10.6
 unittest2==1.1.0
