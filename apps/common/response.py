@@ -14,8 +14,8 @@ def make_response(data, code):
 
 def ok(data=None, code=20000):
     res = json.dumps({
-        "code": code,
-        "data": data or {}
+        'code': code,
+        'data': data or {}
     })
     return make_response(res, code)
 
@@ -25,7 +25,7 @@ def error(code, message=None):
         message = Config.ERROR_CODE[code]
 
     res = json.dumps({
-        "code": code,
-        "message": message
+        'code': code,
+        'message': message
     })
     return make_response(res, code)
