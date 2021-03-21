@@ -22,13 +22,12 @@ class TestMixin:
 
 class TestTestModel(TestMixin, db.Model):
     __tablename__ = 'test_tests'
-    __table_args__ = {'extend_existing': True}
 
 
 class TestModel(TestMixin, db.Model):
     __tablename__ = 'tests'
-    __table_args__ = {'extend_existing': True}
 
     test_model = TestTestModel
+
 
 Test = get_model(TestModel)
