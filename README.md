@@ -6,7 +6,7 @@ Flask example
 ### 1. install virtualenv
 ```sh
 $ pip install virtualenv
-$ virtualenv -p python3 venv
+$ virtualenv venv
 $ . venv/bin/activate
 $ pip install -r requirements.txt
 ```
@@ -27,6 +27,8 @@ $ pip install -r requirements.txt
 
 ### 3. db migrate
 ```sh
+$ python3 manage.py db stamp head
+$ python3 manage.py db migrate
 $ python3 manage.py db upgrade
 ```
 migrate db tables

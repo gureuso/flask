@@ -13,12 +13,6 @@ class TestMixin:
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     message = db.Column(db.String(120))
 
-    def __init__(self, message=None):
-        self.message = message
-
-    def __repr__(self):
-        return '<Test {0}>'.format(self.id)
-
 
 class TestTestModel(TestMixin, db.Model):
     __tablename__ = 'test_tests'
