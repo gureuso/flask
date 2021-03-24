@@ -69,7 +69,7 @@ class Config:
 
 # flask config
 class FlaskConfig:
-    SECRET_KEY = os.urandom(24).hex()
+    SECRET_KEY = '9022b99ae34ae74ec06bbeac8653b6c98a6ff9ee66ac4f96'
     SQLALCHEMY_DATABASE_URI = Config.database_url()
     # https://stackoverflow.com/questions/33738467/how-do-i-know-if-i-can-disable-sqlalchemy-track-modifications
     SQLALCHEMY_TRACK_MODIFICATIONS = False

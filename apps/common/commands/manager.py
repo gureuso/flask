@@ -25,13 +25,13 @@ def test():
     runner = unittest2.TextTestRunner()
     r = runner.run(suite)
 
+    JsonConfig.set_data('TESTING', False)
+
     if r.wasSuccessful():
         print('success')
     else:
         print('fail')
         exit(1)
-
-    JsonConfig.set_data('TESTING', False)
 
 
 @manager.option('-h', '--host', dest='host', default=Config.APP_HOST)

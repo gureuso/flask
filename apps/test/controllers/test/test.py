@@ -9,7 +9,6 @@ from apps.controllers.router import app
 class Test(unittest2.TestCase):
     def setUp(self):
         self.app = app.test_client()
-        self.app.testing = True
 
     def tearDown(self):
         pass
@@ -47,8 +46,6 @@ class Test(unittest2.TestCase):
     def test_get_html(self):
         result = self.app.get('/test/html')
         self.assertEqual(result.status_code, 200)
-        match = re.search(r'<h1>html<\/h1>', result.data.decode('utf-8'))
-        self.assertTrue(match)
 
 
 if __name__ == '__main__':
