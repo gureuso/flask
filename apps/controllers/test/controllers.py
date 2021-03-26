@@ -4,6 +4,7 @@ from flask import Blueprint, abort, render_template, request
 
 from apps.common.response import ok, error
 from apps.database.models import Test
+from apps.database.session import db
 from .forms import TestForm
 
 app = Blueprint('test', __name__, url_prefix='/test')
@@ -29,16 +30,6 @@ def proxy():
         res = requests.post(url=url, data=form)
 
     return ok(dict(url=res.url, data=res.text, code=res.status_code))
-
-
-@app.route('/db', methods=['GET'])
-def db():
-    test = Test.query.first()
-    if test:
-        message = test.message
-    else:
-        message = None
-    return ok({'message': message})
 
 
 @app.route('/403', methods=['GET'])
