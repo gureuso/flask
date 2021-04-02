@@ -5,9 +5,41 @@ from flask import Blueprint, abort, render_template, request
 from apps.common.response import ok, error
 from apps.database.models import Test
 from apps.database.session import db
+from apps.common.tasks import hello
 from .forms import TestForm
 
 app = Blueprint('test', __name__, url_prefix='/test')
+
+
+@app.route('', methods=['GET'])
+def get_tests():
+    tests = Test.query.all()
+    hello.delay()
+    return render_template('test/test.html', tests=tests)
+
+
+@app.route('', methods=['POST'])
+def create_test():
+    test = Test(message='Hello World!!!')
+    db.session.add(test)
+    db.session.commit()
+    return ok()
+
+
+@app.route('/<int:test_id>', methods=['DELETE'])
+def delete_test(test_id):
+    test = Test.query.filter(Test.id == test_id).first()
+    db.session.delete(test)
+    db.session.commit()
+    return ok()
+
+
+@app.route('/<int:test_id>', methods=['PUT'])
+def update_test(test_id):
+    test = Test.query.filter(Test.id == test_id).first()
+    test.message = 'Hello World2!!!'
+    db.session.commit()
+    return ok()
 
 
 @app.route('/ping', methods=['GET'])

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-import re
 import unittest2
 
 from apps.controllers.router import app

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest2
 
-from apps.database.session import cache
 from apps.controllers.router import app
 from apps.database.models import Test
 
