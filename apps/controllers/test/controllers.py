@@ -5,7 +5,6 @@ from flask import Blueprint, abort, render_template, request
 from apps.common.response import ok, error
 from apps.database.models import Test
 from apps.database.session import db
-from apps.common.tasks import hello
 from .forms import TestForm
 
 app = Blueprint('test', __name__, url_prefix='/test')
@@ -14,7 +13,6 @@ app = Blueprint('test', __name__, url_prefix='/test')
 @app.route('', methods=['GET'])
 def get_tests():
     tests = Test.query.all()
-    hello.delay()
     return render_template('test/test.html', tests=tests)
 
 
