@@ -12,11 +12,14 @@ def make_response(data, code):
     return resp
 
 
-def ok(data=None, code=20000):
-    res = json.dumps({
-        'code': code,
-        'data': data or {}
-    })
+def ok(data=None, code=20000, raw=False):
+    if raw:
+        res = data or {}
+    else:
+        res = json.dumps({
+            'code': code,
+            'data': {} if data is None else data
+        })
     return make_response(res, code)
 
 

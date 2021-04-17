@@ -11,7 +11,7 @@ class JsonConfig:
 
     @staticmethod
     def get_data(varname, value=None):
-        return JsonConfig.DATA.get(varname) or os.getenv(varname) or value
+        return JsonConfig.DATA.get(varname) or os.environ.get(varname) or value
 
     @staticmethod
     def set_data(key, value):
