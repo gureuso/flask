@@ -4,20 +4,19 @@ import json
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA = json.loads(open('{}/config.json'.format(ROOT_DIR)).read())
 
 
 class JsonConfig:
-    DATA = json.loads(open('{}/config.json'.format(ROOT_DIR)).read())
-
     @staticmethod
     def get_data(varname, value=None):
-        return JsonConfig.DATA.get(varname) or os.getenv(varname) or value
+        return DATA.get(varname) or os.environ.get(varname) or value
 
     @staticmethod
     def set_data(key, value):
-        JsonConfig.DATA[key] = value
+        DATA[key] = value
         with open('{}/config.json'.format(ROOT_DIR), 'w') as f:
-            json.dump(JsonConfig.DATA, f, indent=4)
+            json.dump(DATA, f, indent=4)
 
 
 # app config
