@@ -8,6 +8,7 @@ from config import JsonConfig
 
 
 def get_model(model):
+    print(JsonConfig.get_data('TESTING'))
     if JsonConfig.get_data('TESTING'):
         return model.test_model
     return model
@@ -142,7 +143,7 @@ class UserMixin:
     password = db.Column(db.String(255))
 
 
-class TestUserModel(UserMixin, db.Model):
+class TestUserModel(UserMixin, flask_login.UserMixin, db.Model):
     __tablename__ = 'test_users'
 
     posts = db.relationship('TestPostModel', backref='user')

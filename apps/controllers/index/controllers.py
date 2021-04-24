@@ -33,9 +33,9 @@ def get_post(post_id):
     post = Post.query.filter(Post.id == post_id).first()
     if not post:
         abort(404)
-
     view = View.query.filter(View.ip_address == request.remote_addr, View.post_id == post.id,
-                             View.user_id == current_user.id, View.created_at > datetime.now() - timedelta(minutes=30)).first()
+                             View.user_id == current_user.id,
+                             View.created_at > datetime.now() - timedelta(minutes=30)).first()
     if not view:
         view = View(ip_address=request.remote_addr, post_id=post.id, user_id=current_user.id)
         db.session.add(view)

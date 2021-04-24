@@ -16,16 +16,12 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def test():
     """test code"""
-    JsonConfig.set_data('TESTING', True)
-
     loader = unittest2.TestLoader()
     start_dir = '{0}/apps'.format(Config.ROOT_DIR)
     suite = loader.discover(start_dir)
 
     runner = unittest2.TextTestRunner()
     r = runner.run(suite)
-
-    JsonConfig.set_data('TESTING', False)
 
     if r.wasSuccessful():
         print('success')

@@ -5,7 +5,7 @@ from uuid import uuid4
 
 from sqlalchemy import or_
 
-from apps.common.auth import signin_required
+from apps.common.auth import api_signin_required
 from apps.common.response import ok, error
 from apps.database.models import Post, Tag, Comment, View
 from apps.database.session import db
@@ -15,19 +15,19 @@ app = Blueprint('apis_posts', __name__, url_prefix='/apis/posts')
 
 
 @app.route('', methods=['GET'])
-@signin_required
+@api_signin_required
 def get_posts():
     args = request.args
     if args.get('q'):
         search = '%{}%'.format(args['q'])
-        posts = Post.query.filter(or_(Post.title.like(search), Post.content.like(search))).all()
+        posts = Post.query.join(Tag).filter(or_(Post.title.like(search), Post.content.like(search), Tag.title == args['q'])).all()
     else:
         posts = Post.query.all()
     return ok([dict(id=post.id, title=post.title, created_at=str(post.created_at)) for post in posts])
 
 
 @app.route('', methods=['POST'])
-@signin_required
+@api_signin_required
 def create_post():
     form = request.form
     title = form['title']
@@ -41,7 +41,7 @@ def create_post():
 
 
 @app.route('/<int:post_id>', methods=['PUT'])
-@signin_required
+@api_signin_required
 def update_post(post_id):
     form = request.form
     title = form['title']
@@ -64,7 +64,7 @@ def update_post(post_id):
 
 
 @app.route('/<int:post_id>', methods=['DELETE'])
-@signin_required
+@api_signin_required
 def delete_post(post_id):
     post = Post.query.filter(Post.id == post_id).first()
     if not post:
@@ -81,7 +81,7 @@ def delete_post(post_id):
 
 
 @app.route('/file_upload', methods=['POST'])
-@signin_required
+@api_signin_required
 def file_upload():
     args = request.args
     CKEditorFuncNum = args['CKEditorFuncNum']
@@ -97,7 +97,7 @@ def file_upload():
 
 
 @app.route('/<int:post_id>/comments/<int:comment_id>', methods=['PUT'])
-@signin_required
+@api_signin_required
 def update_comment(post_id, comment_id):
     data = request.form
     content = data['content']
@@ -116,7 +116,7 @@ def update_comment(post_id, comment_id):
 
 
 @app.route('/<int:post_id>/comments/<int:comment_id>', methods=['DELETE'])
-@signin_required
+@api_signin_required
 def delete_comment(post_id, comment_id):
     post = Post.query.filter(Post.id == post_id).first()
     if not post:
@@ -132,7 +132,7 @@ def delete_comment(post_id, comment_id):
 
 
 @app.route('/<int:post_id>/comments', methods=['POST'])
-@signin_required
+@api_signin_required
 def create_comment(post_id):
     data = request.form
     content = data['content']
