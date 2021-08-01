@@ -20,7 +20,7 @@ $ pip install -r requirements.txt
 | DB_USER_NAME        | db user name                     |
 | DB_USER_PASSWD      | db user password                 |
 | DB_HOST             | db host                          |
-| DB_DB_NAME          | db name                          |
+| DB_NAME             | db name                          |
 | REDIS_HOST          | redis ip address                 |
 | REDIS_PASSWD        | redis password                   |
 | TESTING             | if using test table true else false |
