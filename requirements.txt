@@ -5,7 +5,7 @@ Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.14.3
 Flask-Login==0.5.0
 mysqlclient==2.1.1
-redis==2.10.6
+redis==4.4.4
 unittest2==1.1.0
 requests==2.25.1
 flasgger==0.9.5
