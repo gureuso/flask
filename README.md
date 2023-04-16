@@ -48,13 +48,6 @@ if you do not install database, you can get the database connection error.
 
 # Command
 
-### runserver
-```sh
-$ export FLASK_APP=apps.common.commands.manager
-$ flask runserver
-```
-run flask server
-
 ### test
 ```sh
 $ export FLASK_APP=apps.common.commands.manager
