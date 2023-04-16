@@ -13,8 +13,7 @@ except FileNotFoundError:
     with open(activate_this) as f:
         exec(f.read(), dict(__file__=activate_this))
 
-from apps.controllers.router import app as application
-from apps.common.commands.manager import manager
+from apps.common.commands.manager import app as application
 
 if __name__ == '__main__':
-    manager.run()
+    application.run()

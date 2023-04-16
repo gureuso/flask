@@ -27,20 +27,22 @@ $ pip install -r requirements.txt
 
 ### 3. db migrate
 ```sh
-$ python3 manage.py db stamp head
-$ python3 manage.py db migrate
-$ python3 manage.py db upgrade
+$ export FLASK_APP=apps.common.commands.manager
+$ flask db stamp head
+$ flask db migrate
+$ flask db upgrade
 ```
 migrate db tables
 
 ### 4. run test code
 ```sh
-$ python3 manage.py test
+$ export FLASK_APP=apps.common.commands.manager
+$ flask test
 ```
 
 ### 5. run flask server
 ```sh
-$ python3 manage.py runserver
+$ python3 manage.py
 ```
 if you do not install database, you can get the database connection error.
 
@@ -48,27 +50,23 @@ if you do not install database, you can get the database connection error.
 
 ### runserver
 ```sh
-$ python3 manage.py runserver
+$ export FLASK_APP=apps.common.commands.manager
+$ flask runserver
 ```
-
-optional arguments:
-```sh
--h, --host  hostname
--p, --port  port number
-```
-
 run flask server
 
 ### test
 ```sh
-$ python3 manage.py test
+$ export FLASK_APP=apps.common.commands.manager
+$ flask test
 ```
 run test code with unittest2
 
 
 ### db
 ```sh
-$ python3 manage.py db
+$ export FLASK_APP=apps.common.commands.manager
+$ flask db
 usage: Perform database migrations
 
 Perform database migrations
